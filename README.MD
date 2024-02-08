@@ -1,4 +1,4 @@
-https://github.com/ahmadalis2016/Iridium-AI-YouTubeTranscriber/blob/main/Images/IridiumAILogo.png
+![image](https://github.com/ahmadalis2016/Iridium-AI-Image-Analysis/assets/130319416/3590b637-b72a-4a41-86ba-a556e9c22016)
 
 # AI-Powered YouTube Video Summarizer
 
