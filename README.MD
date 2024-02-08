@@ -1,3 +1,5 @@
+https://github.com/ahmadalis2016/Iridium-AI-YouTubeTranscriber/blob/main/Images/IridiumAILogo.png
+
 # AI-Powered YouTube Video Summarizer
 
 This Streamlit web application provides a convenient way to summarize YouTube videos using AI technology. It leverages the YouTube Transcript API and Google's Generative AI models to generate detailed summaries of videos based on their transcripts.
