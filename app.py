@@ -4,7 +4,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from PIL import Image
 from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api._errors import NoTranscriptFound  
+from youtube_transcript_api._errors import NoTranscriptFound, VideoUnavailable, NoTranscriptFound  
 import google.generativeai as genai
 
 def load_environment_variables():
