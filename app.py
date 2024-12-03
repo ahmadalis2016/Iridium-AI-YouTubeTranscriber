@@ -37,7 +37,7 @@ def extract_video_id(youtube_video_url):
         raise ValueError("Invalid YouTube video link format.")
 
 def generate_gemini_content(transcript_text, prompt):
-    model = genai.GenerativeModel("gemini-pro")
+    model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(prompt + transcript_text)
     return response.text
 
