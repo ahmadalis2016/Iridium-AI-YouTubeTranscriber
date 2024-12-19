@@ -66,7 +66,7 @@ within 250 words. Please provide the summary of the text given here:
 # Load and display Iridium logo.
 logo_path = "Images/IridiumAILogo.png"
 iridium_logo = Image.open(logo_path)
-st.image(iridium_logo, use_column_width=False)
+st.image(iridium_logo, use_container_width=False)
 
 st.title("AI-Powered YouTube Video Summarizer")
 youtube_link = st.text_input("Enter YouTube Video Link:")
