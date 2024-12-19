@@ -43,7 +43,7 @@ def generate_gemini_content(transcript_text, prompt):
 
 def show_video_thumbnail(youtube_link):
     video_id = extract_video_id(youtube_link)
-    st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
+    st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_container_width=True)
 
 def get_detailed_notes_button():
     if st.button("Comprehensive Summary"):
