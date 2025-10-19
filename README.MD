@@ -4,19 +4,19 @@
 
 This Streamlit web application provides a convenient way to summarize YouTube videos using AI technology. It leverages the YouTube Transcript API and Google's Generative AI models to generate detailed summaries of videos based on their transcripts.
 
-## Demo App
+## Demo App:
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://iridium-ai-youtubesummarizer.streamlit.app/)
 
 
-## Features
+## Features:
 
 - Extracts transcript text from YouTube videos.
 - Generates comprehensive summaries of videos using advanced AI technology.
 - Displays video thumbnails for easy identification.
 - User-friendly interface powered by Streamlit.
 
-## Prerequisites
+## Prerequisites:
 
 Before running the application, ensure you have the following prerequisites installed:
 
@@ -31,7 +31,7 @@ Before running the application, ensure you have the following prerequisites inst
 
 Enter the YouTube video link in the input field provided and click "Comprehensive Summary" to generate a summary.
 
-## Contributing
+## Contributing:
 
 Ahmad A Shaik, Ph.D.
 
