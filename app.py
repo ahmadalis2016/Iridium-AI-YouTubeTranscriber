@@ -20,25 +20,19 @@ def extract_video_id(youtube_video_url):
 def extract_transcript_details(youtube_video_url):
     try:
         video_id = extract_video_id(youtube_video_url)
-        transcripts = YouTubeTranscriptApi.list_transcripts(video_id)
 
-        # Choose English transcript if available; else auto-select any
-        try:
-            transcript = transcripts.find_transcript(['en'])
-        except:
-            transcript = transcripts._transcripts[0]
+        # Fetch transcript (English preferred)
+        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['en'])
 
-        transcript_list = transcript.fetch()
-
-        transcript_text = " ".join([t["text"] for t in transcript_list])
+        transcript_text = " ".join([entry["text"] for entry in transcript_list])
         return transcript_text
 
     except NoTranscriptFound:
-        st.error("Transcript not found for this video.")
+        st.error("❌ No transcript found for this video.")
     except VideoUnavailable:
-        st.error("This video is unavailable.")
+        st.error("❌ The video is unavailable.")
     except Exception as e:
-        st.error(f"An error occurred: {str(e)}")
+        st.error(f"⚠️ An error occurred: {str(e)}")
 
 
 def generate_gemini_content(transcript_text, prompt):
