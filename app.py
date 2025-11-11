@@ -55,51 +55,12 @@ def extract_transcript_details(youtube_video_url):
         st.error(f"⚠️ An error occurred: {str(e)}")
     return None
 
-def get_available_models():
-    """Get list of available models and filter for text generation"""
-    try:
-        models = genai.list_models()
-        text_models = []
-        for model in models:
-            if 'generateContent' in model.supported_generation_methods:
-                text_models.append(model.name)
-        return text_models
-    except Exception as e:
-        st.error(f"❌ Error fetching available models: {str(e)}")
-        return []
-
 def generate_gemini_content(transcript_text, prompt):
     try:
-        # Try different model names in order of preference
-        model_options = [
-            "gemini-2.5-flash",  # Newest flash model
-            
-        ]
-        
-        successful_model = None
-        response = None
-        
-        for model_name in model_options:
-            try:
-                st.info(f"🔄 Trying model: {model_name}")
-                model = genai.GenerativeModel(model_name)
-                response = model.generate_content(prompt + transcript_text)
-                successful_model = model_name
-                break
-            except Exception as e:
-                st.warning(f"❌ Model {model_name} failed: {str(e)}")
-                continue
-        
-        if response and successful_model:
-            st.success(f"✅ Using model: {successful_model}")
-            return response.text
-        else:
-            st.error("❌ All model attempts failed. Available models:")
-            available_models = get_available_models()
-            for model in available_models:
-                st.write(f"  - {model}")
-            return None
-            
+        # Use the working model
+        model = genai.GenerativeModel("gemini-2.5-flash")
+        response = model.generate_content(prompt + transcript_text)
+        return response.text
     except Exception as e:
         st.error(f"❌ Error generating content: {str(e)}")
         return None
@@ -125,16 +86,6 @@ if os.path.exists(logo_path):
     st.image(Image.open(logo_path), use_container_width=False)
 
 st.title("🎥 Iridium AI: YouTube Video Summarizer")
-
-# Show available models in sidebar
-st.sidebar.subheader("🔧 Available Models")
-available_models = get_available_models()
-if available_models:
-    for model in available_models:
-        st.sidebar.write(f"• {model}")
-else:
-    st.sidebar.warning("No models available or couldn't fetch model list")
-
 youtube_link = st.text_input("Enter YouTube Video Link:")
 
 if youtube_link:
@@ -146,11 +97,19 @@ if st.button("Generate Summary"):
             transcript_text = extract_transcript_details(youtube_link)
         
         if transcript_text:
-            with st.spinner("Generating summary with available models..."):
+            with st.spinner("Generating summary with Gemini 2.5 Flash..."):
                 summary = generate_gemini_content(transcript_text, prompt)
             
             if summary:
                 st.subheader("📝 Video Summary")
                 st.write(summary)
+                
+                # Add a download button for the summary
+                st.download_button(
+                    label="📥 Download Summary",
+                    data=summary,
+                    file_name="youtube_summary.txt",
+                    mime="text/plain"
+                )
     else:
         st.warning("Please enter a YouTube video link.")
