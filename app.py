@@ -72,12 +72,8 @@ def generate_gemini_content(transcript_text, prompt):
     try:
         # Try different model names in order of preference
         model_options = [
-            "gemini-1.5-flash",  # Newest flash model
-            "gemini-1.5-flash-8b",  # 8B parameter version
-            "gemini-1.0-pro",  # Original pro model
-            "gemini-pro",  # Alternative name
-            "models/gemini-1.0-pro",  # Full path
-            "models/gemini-pro"  # Full path alternative
+            "gemini-2.5-flash",  # Newest flash model
+            
         ]
         
         successful_model = None
