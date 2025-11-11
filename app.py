@@ -37,15 +37,13 @@ def extract_transcript_details(youtube_video_url):
             st.error("❌ Could not extract video ID from the URL.")
             return None
 
-        # Try the most common method for older versions
-        try:
-            # This should work with older versions
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-            transcript_text = " ".join([x["text"] for x in transcript_list])
-            return transcript_text
-        except Exception as e:
-            st.error(f"❌ Error getting transcript: {str(e)}")
-            return None
+        # Create instance and fetch transcript using the new API
+        ytt_api = YouTubeTranscriptApi()
+        fetched_transcript = ytt_api.fetch(video_id)
+        
+        # Extract text from snippets
+        transcript_text = " ".join([snippet.text for snippet in fetched_transcript.snippets])
+        return transcript_text
 
     except NoTranscriptFound:
         st.error("❌ No transcript found for this video.")
