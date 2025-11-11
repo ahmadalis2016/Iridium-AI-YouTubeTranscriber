@@ -24,10 +24,11 @@ def extract_video_id(youtube_video_url):
         if match:
             return match.group(1)
     
-    # If no pattern matches, try to extract the last part of the URL
-    if "youtube.com" in youtube_video_url or "youtu.be" in youtube_video_url:
-        raise ValueError("Invalid YouTube URL format.")
-    return None
+    # If it's a youtu.be short URL
+    if "youtu.be" in youtube_video_url:
+        return youtube_video_url.split("/")[-1].split("?")[0]
+    
+    raise ValueError("Invalid YouTube URL format.")
 
 def extract_transcript_details(youtube_video_url):
     try:
@@ -36,10 +37,15 @@ def extract_transcript_details(youtube_video_url):
             st.error("❌ Could not extract video ID from the URL.")
             return None
 
-        # Get transcript using the traditional method (works with older versions)
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-        transcript_text = " ".join([x["text"] for x in transcript_list])
-        return transcript_text
+        # Try the most common method for older versions
+        try:
+            # This should work with older versions
+            transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+            transcript_text = " ".join([x["text"] for x in transcript_list])
+            return transcript_text
+        except Exception as e:
+            st.error(f"❌ Error getting transcript: {str(e)}")
+            return None
 
     except NoTranscriptFound:
         st.error("❌ No transcript found for this video.")
